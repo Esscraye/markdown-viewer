@@ -10,7 +10,7 @@ curl https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-mar
 curl https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown-dark.min.css --output ../../themes/github-dark.css
 
 # https://github.com/gadenbuie/cleanrmd
-git clone --depth 1 --branch v0.1.0 https://github.com/gadenbuie/cleanrmd.git
+git clone https://github.com/gadenbuie/cleanrmd.git
 
 npm install
 npx csso --input cleanrmd/inst/resources/almond/almond.css --output ../../themes/almond.css
