@@ -4,22 +4,22 @@
   "description": "Markdown Viewer / Browser Extension",
   "private": true,
   "dependencies": {
-    "@material/button": "^0.37.1",
-    "@material/ripple": "^0.37.1",
-    "@material/switch": "^0.36.1",
-    "@material/tabs": "^0.37.1",
-    "@material/textfield": "^0.37.1"
+    "@material/button": "^14.0.0",
+    "@material/ripple": "^14.0.0",
+    "@material/switch": "^14.0.0",
+    "@material/tabs": "^2.3.0",
+    "@material/textfield": "^14.0.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
-    "csso-cli": "^2.0.2",
-    "node-sass": "^5.0.0",
-    "rollup": "^2.35.1",
-    "rollup-plugin-commonjs": "^10.1.0",
-    "rollup-plugin-node-resolve": "^5.2.0"
+    "@rollup/plugin-commonjs": "^25.0.4",
+    "@rollup/plugin-node-resolve": "^15.2.1",
+    "@babel/cli": "^7.22.10",
+    "@babel/preset-env": "^7.22.14",
+    "csso-cli": "^4.0.2",
+    "node-sass": "^9.0.0",
+    "rollup": "^3.28.1"
   },
   "engines": {
-    "node": ">=14.0.0"
+    "node": ">=18.0.0"
   }
 }

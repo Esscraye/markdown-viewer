@@ -1,4 +1,3 @@
-
 import {MDCRipple} from '@material/ripple'
 import {MDCTabBar} from '@material/tabs'
 import {MDCTextField} from '@material/textfield'
