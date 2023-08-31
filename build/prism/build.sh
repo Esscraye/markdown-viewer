@@ -18,6 +18,7 @@ cp tmp/prism-okaidia.min.css ../../vendor/
 # languages
 mkdir -p ../../vendor/prism/
 cp node_modules/prismjs/components/prism-*.min.js ../../vendor/prism/
+cp addLanguage/prism-*.min.js ../../vendor/prism/
 
 # after
 rm -r tmp/
