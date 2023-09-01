@@ -1,14 +1,14 @@
 
-var fs = require('fs')
-var path = require('path')
+import { readFileSync, writeFileSync } from 'fs'
+import { resolve } from 'path'
 
-var fpath = {
-  background: path.resolve(__dirname, '../../background/index.js'),
-  compilers: path.resolve(__dirname, '../../background/index-compilers.js'),
-  manifest: path.resolve(__dirname, '../../manifest.json'),
+const fpath = {
+  background: resolve(__dirname, '../../background/index.js'),
+  compilers: resolve(__dirname, '../../background/index-compilers.js'),
+  manifest: resolve(__dirname, '../../manifest.json'),
 }
 
-var compilers = `
+let compilers = `
 importScripts('/vendor/showdown.min.js')
 importScripts('/vendor/markdown-it.min.js')
 importScripts('/vendor/remarkable.min.js')
@@ -20,18 +20,18 @@ importScripts('/background/compilers/commonmark.js')
 `
 
 // background/index-compilers.js
-var source = fs.readFileSync(fpath.background, 'utf8')
-var lines = source.split('\n')
-fs.writeFileSync(
+let sourceBackground = readFileSync(fpath.background, 'utf8')
+let lines = sourceBackground.split('\n')
+writeFileSync(
   fpath.compilers,
   lines.slice(0, 5).concat(compilers.split('\n')).concat(lines.slice(6)).join('\n'),
   'utf8'
 )
 
 // manifest.json
-var source = fs.readFileSync(fpath.manifest, 'utf8')
-fs.writeFileSync(
+let sourceManifest = readFileSync(fpath.manifest, 'utf8')
+writeFileSync(
   fpath.manifest,
-  source.replace('/background/index.js', '/background/index-compilers.js'),
+  sourceManifest.replace('/background/index.js', '/background/index-compilers.js'),
   'utf8'
 )
