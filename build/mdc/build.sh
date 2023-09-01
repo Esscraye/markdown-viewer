@@ -12,11 +12,12 @@ npx rollup --config rollup.mjs --input mdc.js --file tmp/mdc.js
 npx babel tmp/mdc.js --out-file tmp/mdc.min.js
 
 # mdc.min.css
-npx node-sass --include-path node_modules/ mdc.scss tmp/mdc.css
-npx csso --input tmp/mdc.css --output tmp/mdc.min.css
+## npx node-sass --include-path node_modules/ mdc.scss tmp/mdc.css
+## npx csso --input tmp/mdc.css --output tmp/mdc.min.css
 
 # copy
 cp tmp/mdc.min.* ../../vendor/
+cp mdc.min.css ../../vendor/
 
 # after
 rm -r tmp/
