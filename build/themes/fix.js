@@ -11,12 +11,14 @@ fs.writeFileSync(
   'utf8'
 )
 
-fs.writeFileSync(
-  path.resolve(themes, 'latex.css'),
-  fs.readFileSync(path.resolve(themes, 'latex.css'), 'utf8')
-    .replace('scroll-behavior:smooth', ''),
-  'utf8'
-)
+try {
+  fs.writeFileSync(
+    path.resolve(themes, 'latex.css'),
+    fs.readFileSync(path.resolve(themes, 'latex.css'), 'utf8')
+      .replace('scroll-behavior:smooth', ''),
+    'utf8'
+  )
+} catch {}
 
 fs.writeFileSync(
   path.resolve(themes, 'simple.css'),
