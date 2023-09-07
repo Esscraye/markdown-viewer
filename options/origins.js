@@ -1,6 +1,6 @@
 
-var Origins = () => {
-  var defaults = {
+const Origins = () => {
+  const defaults = {
     // storage
     origins: {},
     match: '',
@@ -12,7 +12,7 @@ var Origins = () => {
     permissions: {},
   }
 
-  var state = Object.assign({}, defaults)
+  let state = Object.assign({}, defaults)
 
   chrome.extension.isAllowedFileSchemeAccess((isAllowedAccess) => {
     state.file = /Firefox/.test(navigator.userAgent)
@@ -30,7 +30,7 @@ var Origins = () => {
     })
   })
 
-  var events = {
+  const events = {
     file: () => {
       chrome.tabs.create({url: `chrome://extensions/?id=${chrome.runtime.id}`})
     },
@@ -45,7 +45,7 @@ var Origins = () => {
       if (!all && !state.host && !['https', 'http', '*'].includes(state.scheme)) {
         return
       }
-      var origin = all ? '*://*' : `${state.scheme}://${state.domain}`
+      const origin = all ? '*://*' : `${state.scheme}://${state.domain}`
       chrome.permissions.request({origins: [`${origin}/*`]}, (granted) => {
         if (granted) {
           chrome.runtime.sendMessage({message: 'origin.add', origin})
@@ -83,7 +83,7 @@ var Origins = () => {
 
     header: (origin) => () => {
       state.origins[origin].header = !state.origins[origin].header
-      var {header, path, match} = state.origins[origin]
+      const {header, path, match} = state.origins[origin]
       chrome.runtime.sendMessage({
         message: 'origin.update',
         origin,
@@ -93,7 +93,7 @@ var Origins = () => {
 
     path: (origin) => () => {
       state.origins[origin].path = !state.origins[origin].path
-      var {header, path, match} = state.origins[origin]
+      const {header, path, match} = state.origins[origin]
       chrome.runtime.sendMessage({
         message: 'origin.update',
         origin,
@@ -105,7 +105,7 @@ var Origins = () => {
       state.origins[origin].match = e.target.value
       clearTimeout(state.timeout)
       state.timeout = setTimeout(() => {
-        var {header, path, match} = state.origins[origin]
+        const {header, path, match} = state.origins[origin]
         chrome.runtime.sendMessage({
           message: 'origin.update',
           origin,
@@ -115,7 +115,7 @@ var Origins = () => {
     },
   }
 
-  var oncreate = {
+  const oncreate = {
     ripple: (vnode) => {
       mdc.ripple.MDCRipple.attachTo(vnode.dom)
     },
@@ -124,7 +124,7 @@ var Origins = () => {
     }
   }
 
-  var onupdate = {
+  const onupdate = {
     header: (origin) => (vnode) => {
       if (vnode.dom.classList.contains('is-checked') !== state.origins[origin].header) {
         vnode.dom.classList.toggle('is-checked')
@@ -137,7 +137,7 @@ var Origins = () => {
     }
   }
 
-  var render = () =>
+  const render = () =>
     m('.m-origins',
 
       // file access
@@ -210,8 +210,8 @@ var Origins = () => {
         .map(callout)
     )
 
-  var callout = (origin) =>
-    m('.bs-callout', {class: !state.permissions[origin] ? 'm-box-refresh' : undefined},
+  const callout = (origin) =>
+    m('.bs-callout', {class: state.permissions[origin] ? undefined : 'm-box-refresh'},
       // origin
       m('.row',
         m('.col-xxl-8.col-xl-8.col-lg-8.col-md-7.col-sm-12', m('span.m-origin', origin)),

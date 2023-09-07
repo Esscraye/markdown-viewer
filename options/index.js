@@ -1,6 +1,6 @@
 
-var origins = Origins()
-var settings = Settings()
+const origins = Origins()
+const settings = Settings()
 
 m.mount(document.querySelector('main'), {
   view: () => [

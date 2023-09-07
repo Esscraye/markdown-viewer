@@ -1,5 +1,5 @@
 
-var state = {
+const state = {
   compiler: '',
   options: {},
   content: {},
@@ -9,24 +9,24 @@ var state = {
     'github',
     'github-dark',
     // 'air',
-    'almond',
-    'awsm',
-    'axist',
+    // 'almond',
+    // 'awsm',
+    // 'axist',
     'bamboo',
-    'bullframe',
+    // 'bullframe',
     'holiday',
     'kacit',
-    'latex',
+    // 'latex',
     'marx',
     'mini',
-    'modest',
+    // 'modest',
     'new',
-    'no-class',
+    // 'no-class',
     'pico',
-    'retro',
+    // 'retro',
     'sakura',
     'sakura-vader',
-    'semantic',
+    // 'semantic',
     'simple',
     // 'splendor',
     'style-sans',
@@ -67,7 +67,7 @@ var state = {
   settings: {}
 }
 
-var events = {
+const events = {
   tab: (e) => {
     state.tab = e.target.hash.replace('#tab-', '')
     localStorage.setItem('tab', state.tab)
@@ -141,7 +141,7 @@ var events = {
   }
 }
 
-var init = (res) => {
+let init = (res) => {
   state.compiler = res.compiler
   state.options = res.options
   state.content = res.content
@@ -161,7 +161,7 @@ var init = (res) => {
 
 chrome.runtime.sendMessage({message: 'popup'}, init)
 
-var oncreate = {
+const oncreate = {
   ripple: (vnode) => {
     mdc.ripple.MDCRipple.attachTo(vnode.dom)
   },
@@ -173,8 +173,8 @@ var oncreate = {
   }
 }
 
-var onupdate = (tab, key) => (vnode) => {
-  var value = tab === 'compiler' ? state.options[key]
+const onupdate = (tab, key) => (vnode) => {
+  let value = tab === 'compiler' ? state.options[key]
     : tab === 'content' ? state.content[key]
     : null
 

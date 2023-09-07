@@ -5,7 +5,7 @@ md.messages = ({storage: {defaults, state, set}, compilers, mathjax, xhr, webreq
 
     // content
     if (req.message === 'markdown') {
-      var markdown = req.markdown
+      let { markdown } = req
 
       if (state.content.mathjax) {
         var jax = mathjax()

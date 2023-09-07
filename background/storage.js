@@ -17,7 +17,7 @@ md.storage = ({compilers}) => {
     md.storage.bug(res)
 
     Object.assign(state, JSON.parse(JSON.stringify(
-      !Object.keys(res).length ? defaults : res)))
+      Object.keys(res).length ? res : defaults)))
 
     // mutate
     md.storage.migrations(state)
@@ -36,9 +36,9 @@ md.storage = ({compilers}) => {
 }
 
 md.storage.defaults = (compilers) => {
-  var match = '\\.(?:markdown|mdown|mkdn|md|mkd|mdwn|mdtxt|mdtext|text)(?:#.*|\\?.*)?$'
+  const match = '\\.(?:markdown|mdown|mkdn|md|mkd|mdwn|mdtxt|mdtext|text)(?:#.*|\\?.*)?$'
 
-  var defaults = {
+  let defaults = {
     theme: 'github',
     compiler: 'marked',
     raw: false,

@@ -1,7 +1,7 @@
 
-var $ = document.querySelector.bind(document)
+let $ = document.querySelector.bind(document)
 
-var state = {
+let state = {
   theme: args.theme,
   raw: args.raw,
   themes: args.themes,
@@ -19,25 +19,25 @@ var state = {
   _themes: {
     'github': 'light',
     'github-dark': 'dark',
-    'almond': 'light',
+    // 'almond': 'light',
     // 'air': 'light',
-    'awsm': 'light',
-    'axist': 'light',
+    // 'awsm': 'light',
+    // 'axist': 'light',
     'bamboo': 'auto',
-    'bullframe': 'light',
+    // 'bullframe': 'light',
     'holiday': 'auto',
     'kacit': 'light',
-    'latex': 'light',
+    // 'latex': 'light',
     'marx': 'light',
     'mini': 'light',
-    'modest': 'light',
+    // 'modest': 'light',
     'new': 'auto',
-    'no-class': 'auto',
+    // 'no-class': 'auto',
     'pico': 'auto',
-    'retro': 'dark',
+    // 'retro': 'dark',
     'sakura': 'light',
     'sakura-vader': 'dark',
-    'semantic': 'light',
+    // 'semantic': 'light',
     'simple': 'auto',
     // 'splendor': 'light',
     'style-sans': 'light',
@@ -73,7 +73,7 @@ chrome.runtime.onMessage.addListener((req, sender, sendResponse) => {
   }
 })
 
-var oncreate = {
+const oncreate = {
   markdown: () => {
     setTimeout(() => scroll(), 0)
   },
@@ -82,7 +82,7 @@ var oncreate = {
   }
 }
 
-var onupdate = {
+const onupdate = {
   html: () => {
     if (state.reload.md) {
       state.reload.md = false
@@ -96,7 +96,7 @@ var onupdate = {
   }
 }
 
-var update = (update) => {
+const update = (update) => {
   scroll(update)
 
   if (state.content.syntax) {
@@ -112,7 +112,7 @@ var update = (update) => {
   }
 }
 
-var render = (md) => {
+const render = (md) => {
   state.markdown = frontmatter(md)
   chrome.runtime.sendMessage({
     message: 'markdown',
@@ -139,7 +139,7 @@ var render = (md) => {
 
 function mount () {
   $('pre').style.display = 'none'
-  var md = $('pre').innerText
+  const md = $('pre').innerText
   favicon()
 
   m.mount($('body'), {
@@ -147,14 +147,51 @@ function mount () {
       render(md)
     },
     view: () => {
-      var dom = []
+      let dom = []
+
+      const back_to_top = m('a.back-to-top', {
+        href: '#',
+        onclick: () => {
+          window.scrollTo({ top: 0, behavior: 'smooth' })
+          return false // Prevent the link from navigating to a new page
+        }
+      }, [
+        m('svg', {
+          xmlns: "http://www.w3.org/2000/svg",
+          class: "back-to-top-icon",
+          fill: "none",
+          viewBox: "0 0 24 24",
+          stroke: "currentColor"
+        }, [
+          m('path', {
+            "stroke-linecap": "round",
+            "stroke-linejoin": "round",
+            "stroke-width": "2",
+            d: "M7 11l5-5m0 0l5 5m-5-5v12"
+          })
+        ])
+      ])
+      
+      dom.push(back_to_top);
+
+      // Add an event listener to the window object that listens for the scroll event
+      window.addEventListener('scroll', () => {
+        const button = document.getElementsByClassName('back-to-top')[0]
+        if (button) {
+          if (window.scrollY > 200) {
+            button.style.display = 'block' // Show the button when the user has scrolled down the page
+          } else {
+            button.style.display = 'none' // Hide the button when the user has scrolled back to the top of the page
+          }
+        }
+      })
 
       if (state.raw) {
         dom.push(m('pre#_markdown', {oncreate: oncreate.markdown}, state.markdown))
         $('body').classList.remove('_toc-left', '_toc-right')
       }
       else if (state.html) {
-        var loaded = Array.from($('body').classList).filter((name) => /^_theme/.test(name))[0]
+        const loaded = Array.from($('body').classList).filter((name) => /^_theme/.test(name))[0]
         $('body').classList.remove(loaded)
         dom.push(m('link#_theme', {
           onupdate: onupdate.theme,
@@ -164,7 +201,7 @@ function mount () {
         $('body').classList.add(`_theme-${state.theme}`)
 
         if (state.content.syntax) {
-          var prism =
+          const prism =
             state._themes[state.theme] === 'dark' ||
             (state._themes[state.theme] === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches)
             ? 'prism-okaidia' : 'prism'
@@ -192,17 +229,16 @@ function mount () {
   })
 }
 
-var anchors = (html) =>
+const anchors = (html) =>
   html.replace(/(<h[1-6] id="(.*?)">)/g, (header, _, id) =>
     header +
     '<a class="anchor" name="' + id + '" href="#' + id + '">' +
     '<span class="octicon octicon-link"></span></a>'
   )
 
-var toc = (() => {
-  var walk = (regex, string, group, result = [], match = regex.exec(string)) =>
-    !match ? result : walk(regex, string, group, result.concat(!group ? match[1] :
-      group.reduce((all, name, index) => (all[name] = match[index + 1], all), {})))
+const toc = (() => {
+  const walk = (regex, string, group, result = [], match = regex.exec(string)) =>
+    match ? walk(regex, string, group, result.concat(group ? group.reduce((all, name, index) => (all[name] = match[index + 1], all), {}) : match[1])) : result
   return {
     render: (html) =>
       walk(
@@ -218,22 +254,22 @@ var toc = (() => {
   }
 })()
 
-var frontmatter = (md) => {
+const frontmatter = (md) => {
   if (/^-{3}[\s\S]+?-{3}/.test(md)) {
-    var [, yaml] = /^-{3}([\s\S]+?)-{3}/.exec(md)
-    var title = /title: (?:'|")*(.*)(?:'|")*/.exec(yaml)
+    let [, yaml] = /^-{3}([\s\S]+?)-{3}/.exec(md)
+    let title = /title: (?:'|")*(.*)(?:'|")*/.exec(yaml)
     title && (document.title = title[1])
   }
   else if (/^\+{3}[\s\S]+?\+{3}/.test(md)) {
-    var [, toml] = /^\+{3}([\s\S]+?)\+{3}/.exec(md)
-    var title = /title = (?:'|"|`)*(.*)(?:'|"|`)*/.exec(toml)
+    let [, toml] = /^\+{3}([\s\S]+?)\+{3}/.exec(md)
+    let title = /title = (?:'|"|`)*(.*)(?:'|"|`)*/.exec(toml)
     title && (document.title = title[1])
   }
   return md.replace(/^(?:-|\+){3}[\s\S]+?(?:-|\+){3}/, '')
 }
 
-var favicon = () => {
-  var favicon = document.createElement('link')
+const favicon = () => {
+  const favicon = document.createElement('link')
   favicon.rel = 'icon'
   favicon.href = chrome.runtime.getURL(`/icons/${state.icon}/16x16.png`)
   $('head').appendChild(favicon)
@@ -243,7 +279,7 @@ if (document.readyState === 'complete') {
   mount()
 }
 else {
-  var timeout = setInterval(() => {
+  const timeout = setInterval(() => {
     if (document.readyState === 'complete') {
       clearInterval(timeout)
       mount()

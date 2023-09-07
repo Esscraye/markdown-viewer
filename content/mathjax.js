@@ -2,7 +2,7 @@
 var MathJax = {
   loader: {
     pathFilters: [
-      ({name}) => name.startsWith('[tex]') ? false : true // keep the name
+      ({name}) => !name.startsWith('[tex]') // keep the name
     ],
     require: (path) => path.startsWith('[tex]') ?
       chrome.runtime.sendMessage({
@@ -37,7 +37,7 @@ var MathJax = {
   }
 }
 
-var mj = {
+const mj = {
   loaded: false,
   render: () => {
     mj.loaded = false

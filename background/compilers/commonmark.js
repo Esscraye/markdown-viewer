@@ -1,11 +1,11 @@
 
 md.compilers.commonmark = (() => {
-  var defaults = {
+  const defaults = {
     safe: false,
     smart: false,
   }
 
-  var description = {
+  const description = {
     safe: 'Raw HTML will not be rendered',
     smart: [
       'Straight quotes will be made curly',

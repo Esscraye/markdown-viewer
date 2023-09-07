@@ -1,15 +1,15 @@
 
-var scroll = (() => {
+const scroll = (() => {
   function race (done) {
     Promise.race([
       Promise.all([
         new Promise((resolve) => {
-          var images = Array.from(document.querySelectorAll('img'))
+          const images = Array.from(document.querySelectorAll('img'))
           if (!images.length) {
             resolve()
           }
           else {
-            var loaded = 0
+            let loaded = 0
             images.forEach((img) => {
               img.addEventListener('load', () => {
                 if (++loaded === images.length) {
@@ -20,7 +20,7 @@ var scroll = (() => {
           }
         }),
         new Promise((resolve) => {
-          var code = Array.from(document.querySelectorAll('code[class^=language-]'))
+          const code = Array.from(document.querySelectorAll('code[class^=language-]'))
           if (!state.content.syntax || !code.length) {
             resolve()
           }
@@ -29,13 +29,13 @@ var scroll = (() => {
           }
         }),
         new Promise((resolve) => {
-          var diagrams = Array.from(document.querySelectorAll('code.mermaid'))
+          const diagrams = Array.from(document.querySelectorAll('code.mermaid'))
           if (!state.content.mermaid || !diagrams.length) {
             resolve()
           }
           else {
-            var timeout = setInterval(() => {
-              var svg = Array.from(document.querySelectorAll('code.mermaid svg'))
+            const timeout = setInterval(() => {
+              const svg = Array.from(document.querySelectorAll('code.mermaid svg'))
               if (diagrams.length === svg.length) {
                 clearInterval(timeout)
                 resolve()
@@ -48,7 +48,7 @@ var scroll = (() => {
             resolve()
           }
           else {
-            var timeout = setInterval(() => {
+            const timeout = setInterval(() => {
               if (mj.loaded) {
                 clearInterval(timeout)
                 resolve()
@@ -62,15 +62,15 @@ var scroll = (() => {
     .then(done)
   }
   function listen (container, done) {
-    var listener = /html|body/i.test(container.nodeName) ? window : container
-    var timeout = null
+    let listener = /html|body/i.test(container.nodeName) ? window : container
+    let timeout = null
     listener.addEventListener('scroll', () => {
       clearTimeout(timeout)
       timeout = setTimeout(done, 100)
     })
   }
   function get (container, prefix, offset) {
-    var key = prefix + location.origin + location.pathname
+    const key = prefix + location.origin + location.pathname
     if (offset) {
       container.scrollTop = offset
       return
@@ -85,7 +85,7 @@ var scroll = (() => {
     }
   }
   function set (container, prefix) {
-    var key = prefix + location.origin + location.pathname
+    const key = prefix + location.origin + location.pathname
     try {
       listen(container, () => {
         localStorage.setItem(key, container.scrollTop)
@@ -97,10 +97,10 @@ var scroll = (() => {
       })
     }
   }
-  var listening = false
+  let listening = false
   return (update) => {
     race(() => {
-      var container = ((html = $('html')) => (
+      const container = ((html = $('html')) => (
         html.scrollTop = 1,
         html.scrollTop ? (html.scrollTop = 0, html) : $('body')
       ))()

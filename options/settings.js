@@ -1,13 +1,13 @@
 
-var Settings = () => {
-  var defaults = {
+const Settings = () => {
+  const defaults = {
     icon: false,
     theme: 'light',
     _icons: ['light', 'dark'],
     _themes: ['light', 'dark', 'auto'],
   }
 
-  var state = Object.assign({}, defaults)
+  let state = Object.assign({}, defaults)
 
   chrome.runtime.sendMessage({message: 'options.settings'}, (res) => {
     Object.assign(state, res)
@@ -15,7 +15,7 @@ var Settings = () => {
     m.redraw()
   })
 
-  var events = {
+  const events = {
     icon: (e) => {
       state.icon = state._icons[e.target.selectedIndex]
       chrome.runtime.sendMessage({
@@ -40,11 +40,11 @@ var Settings = () => {
     }
   }
 
-  var oncreate = {}
+  const oncreate = {}
 
-  var onupdate = {}
+  const onupdate = {}
 
-  var render = () =>
+  const render = () =>
     m('.m-settings hidden',
       m('.row',
         m('h3', 'Settings')

@@ -1,8 +1,8 @@
 
 ;(() => {
-  var current = ''
+  let current = ''
 
-  var response = (md) => {
+  const response = (md) => {
     if (!current) {
       current = md
     }
@@ -13,14 +13,14 @@
     }
   }
 
-  var xhr = new XMLHttpRequest()
+  let xhr = new XMLHttpRequest()
   xhr.onreadystatechange = () => {
     if (xhr.readyState === 4) {
       response(xhr.responseText)
     }
   }
 
-  var get = () => {
+  const get = () => {
     if (location.protocol === 'file:') {
       chrome.runtime.sendMessage({
         message: 'autoreload',

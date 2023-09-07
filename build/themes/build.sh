@@ -37,9 +37,9 @@ npx csso --input cleanrmd/inst/resources/simplecss/simple.css --output ../../the
 npx csso --input cleanrmd/inst/resources/style-sans/style-sans.css --output ../../themes/style-sans.css
 npx csso --input cleanrmd/inst/resources/style-serif/style-serif.css --output ../../themes/style-serif.css
 npx csso --input cleanrmd/inst/resources/stylize/stylize.css --output ../../themes/stylize.css
-npx csso --input cleanrmd/inst/resources/superstylin/superstylin.css --output ../../themes/superstylin.css
+# npx csso --input cleanrmd/inst/resources/superstylin/superstylin.css --output ../../themes/superstylin.css
 npx csso --input cleanrmd/inst/resources/tacit/tacit.css --output ../../themes/tacit.css
-npx csso --input cleanrmd/inst/resources/vanilla/vanilla.css --output ../../themes/vanilla.css
+# npx csso --input cleanrmd/inst/resources/vanilla/vanilla.css --output ../../themes/vanilla.css
 npx csso --input cleanrmd/inst/resources/water/water.css --output ../../themes/water.css
 npx csso --input cleanrmd/inst/resources/water-dark/water-dark.css --output ../../themes/water-dark.css
 npx csso --input cleanrmd/inst/resources/writ/writ.css --output ../../themes/writ.css
