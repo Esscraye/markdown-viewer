@@ -721,22 +721,22 @@ img.emojione {
 /*back to top button*/
 
 .back-to-top {
-  position: fixed;
-  right: 2rem;
-  bottom: 2rem;
-  border-radius: 100%;
-  background: #141c38;
-  padding: 0.5rem;
-  border: none;
-  cursor: pointer;
+  position: fixed !important;
+  right: 2rem !important;
+  bottom: 2rem !important;
+  border-radius: 100% !important;
+  background: #141c38 !important;
+  padding: 0.3rem !important;
+  border: none !important;
+  cursor: pointer !important;
 }
 
 .back-to-top:hover {
-  background-color: #3e8e41;
+  background-color: #38509E !important;
 }
 
 .back-to-top-icon {
-  width: 1rem;
-  height: 1rem;
-  color: #7ac9f9;
+  width: 2rem !important;
+  height: 1.7rem !important;
+  color: #7ac9f9 !important;
 }
