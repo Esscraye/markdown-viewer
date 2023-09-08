@@ -1,5 +1,4 @@
-
-const scroll = (() => {
+var scroll = (() => {
   function race (done) {
     Promise.race([
       Promise.all([

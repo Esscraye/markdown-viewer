@@ -1,7 +1,6 @@
+var $ = document.querySelector.bind(document)
 
-let $ = document.querySelector.bind(document)
-
-let state = {
+var state = {
   theme: args.theme,
   raw: args.raw,
   themes: args.themes,

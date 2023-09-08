@@ -1,4 +1,3 @@
-
 var MathJax = {
   loader: {
     pathFilters: [
@@ -37,7 +36,7 @@ var MathJax = {
   }
 }
 
-const mj = {
+var mj = {
   loaded: false,
   render: () => {
     mj.loaded = false

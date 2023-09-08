@@ -1,5 +1,4 @@
-
-const mmd = (() => {
+var mmd = (() => {
   let loaded = false
 
   const walk = (regex, string, result = [], match = regex.exec(string)) =>
