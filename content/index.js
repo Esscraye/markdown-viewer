@@ -119,6 +119,10 @@ const render = (md) => {
     markdown: state.markdown
   }, (res) => {
     state.html = res.html
+    state.html = state.html.replace(
+      /<img src="/gi,
+      '<img loading="lazy" src="'
+    )
     if (state.content.emoji) {
       state.html = emojinator(state.html)
     }
