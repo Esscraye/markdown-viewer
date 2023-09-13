@@ -6,8 +6,8 @@ cd "$(dirname "$0")"
 mkdir -p ../../themes
 
 # https://github.com/sindresorhus/github-markdown-css
-curl https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown-light.min.css --output ../../themes/github.css
-curl https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown-dark.min.css --output ../../themes/github-dark.css
+# curl https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown-light.min.css --output ../../themes/github.css
+# curl https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown-dark.min.css --output ../../themes/github-dark.css
 
 # https://github.com/gadenbuie/cleanrmd
 git clone https://github.com/gadenbuie/cleanrmd.git
@@ -30,8 +30,8 @@ npm install
 # npx csso --input cleanrmd/inst/resources/new.css/new.css --output ../../themes/new.css
 # npx csso --input cleanrmd/inst/resources/no-class/no-class.css --output ../../themes/no-class.css
 # npx csso --input cleanrmd/inst/resources/picocss/pico.css --output ../../themes/pico.css
-npx csso --input cleanrmd/inst/resources/sakura/sakura.css --output ../../themes/sakura.css
-npx csso --input cleanrmd/inst/resources/sakura-vader/sakura-vader.css --output ../../themes/sakura-vader.css
+# npx csso --input cleanrmd/inst/resources/sakura/sakura.css --output ../../themes/sakura.css
+# npx csso --input cleanrmd/inst/resources/sakura-vader/sakura-vader.css --output ../../themes/sakura-vader.css
 # npx csso --input cleanrmd/inst/resources/semantic/semantic.css --output ../../themes/semantic.css
 # npx csso --input cleanrmd/inst/resources/simplecss/simple.css --output ../../themes/simple.css
 # npx csso --input cleanrmd/inst/resources/style-sans/style-sans.css --output ../../themes/style-sans.css
