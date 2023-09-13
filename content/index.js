@@ -243,17 +243,51 @@ const toc = (() => {
   const walk = (regex, string, group, result = [], match = regex.exec(string)) =>
     match ? walk(regex, string, group, result.concat(group ? group.reduce((all, name, index) => (all[name] = match[index + 1], all), {}) : match[1])) : result
   return {
-    render: (html) =>
-      walk(
+    render: (html) => {
+      const headings = walk(
         /<h([1-6]) id="(.*?)">(.*?)<\/h[1-6]>/gs,
         html,
         ['level', 'id', 'title']
       )
-      .reduce((toc, {id, title, level}) => toc +=
-        '<div class="_ul">'.repeat(level) +
-        '<a href="#' + id + '">' + title.replace(/<a[^>]+>/g, '').replace(/<\/a>/g, '') + '</a>' +
-        '</div>'.repeat(level)
-      , '')
+      
+      let toc = '<ul class="toc">';
+      let index = 1;
+      
+      headings.forEach((element, item, arr) => {
+        let { id, title, level } = element;
+        level = parseInt(level);
+          if (level === index) {
+            toc +=
+            '<li class="_li">' +
+            (level < 6 && (arr.length - 1 != item) && (arr[item+1].level > level) ? '<button class="_btn">+</button>' : '<div class="_tocBlank"></div>') +
+            '<a href="#' + id + '">' + title.replace(/<a[^>]+>/g, '').replace(/<\/a>/g, '') + '</a>' +
+            (level < 6 && (arr.length - 1 != item) && (arr[item+1].level > level) ? '' : '</li>');
+          } else if (level > index) {
+            toc +=
+            '<ul class="_ul _ul-collapsed">' +
+            '<li class="_li">' +
+            (level < 6 && (arr.length - 1 != item) && (arr[item+1].level > level) ? '<button class="_btn">+</button>' : '<div class="_tocBlank"></div>') +
+            '<a href="#' + id + '">' + title.replace(/<a[^>]+>/g, '').replace(/<\/a>/g, '') + '</a>' +
+            (level < 6 && (arr.length - 1 != item) && (arr[item+1].level > level) ? '' : '</li>');
+            index = level;
+          } else if (level < index) {
+            toc +=
+            '</ul></li>'.repeat(index - level) +
+            '<li class="_li">' +
+            (level < 6 && (arr.length - 1 != item) && (arr[item+1].level > level) ? '<button class="_btn">+</button>' : '<div class="_tocBlank"></div>') +
+            '<a href="#' + id + '">' + title.replace(/<a[^>]+>/g, '').replace(/<\/a>/g, '') + '</a>' +
+            (level < 6 && (arr.length - 1 != item) && (arr[item+1].level > level) ? '' : '</li>');
+            index = level;
+          }
+      });
+
+      toc += '</ul>'.repeat(index - 1);
+
+      const tocElement = document.createElement('div')
+      tocElement.innerHTML = toc;
+
+      return tocElement.innerHTML;
+    }
   }
 })()
 
@@ -278,14 +312,36 @@ const favicon = () => {
   $('head').appendChild(favicon)
 }
 
+function tocbtn() {
+  const allbtn = document.querySelectorAll('._btn');
+  if (allbtn.length > 0) {
+    console.log('btn found')
+    document.querySelectorAll('._btn').forEach(btn => {
+      btn.addEventListener('click', event => {
+        event.stopPropagation()
+        const ul = btn.parentNode.querySelector('._ul')
+        if (ul) {
+          ul.classList.toggle('_ul-collapsed')
+          btn.textContent = ul.classList.contains('_ul-collapsed') ? '+' : '-'
+        }
+      })
+    })
+  } else {
+    console.log('no btn');
+    setTimeout(() => tocbtn(), 30)
+  }
+}
+
 if (document.readyState === 'complete') {
   mount()
+  tocbtn()
 }
 else {
   const timeout = setInterval(() => {
     if (document.readyState === 'complete') {
       clearInterval(timeout)
       mount()
+      tocbtn()
     }
   }, 0)
 }
