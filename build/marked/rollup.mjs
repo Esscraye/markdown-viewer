@@ -16,6 +16,6 @@ export default {
 
   output: {
     format: 'iife',
-    name: 'remark',
+    name: 'marked',
   },
 }

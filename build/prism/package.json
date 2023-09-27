@@ -8,7 +8,7 @@
   },
   "devDependencies": {
     "csso-cli": "^4.0.2",
-    "terser": "^5.19.3"
+    "terser": "^5.20.0"
   },
   "engines": {
     "node": ">=18.0.0"

@@ -3,7 +3,7 @@ const Settings = () => {
   const defaults = {
     icon: false,
     theme: 'light',
-    _icons: ['light', 'dark'],
+    _icons: ['default', 'light', 'dark'],
     _themes: ['light', 'dark', 'auto'],
   }
 
